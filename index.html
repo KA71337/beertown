@@ -37,6 +37,171 @@
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
+            position: relative;
+        }
+
+        /* Snow Animation */
+        .snowflake {
+            position: fixed;
+            top: -10px;
+            z-index: 9999;
+            user-select: none;
+            cursor: default;
+            animation-name: snowfall;
+            animation-duration: 10s;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+            opacity: 0.8;
+            color: rgba(255, 217, 61, 0.4);
+            font-size: 1em;
+        }
+
+        @keyframes snowfall {
+            0% {
+                transform: translateY(0vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            90% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .snowflake:nth-of-type(0) { left: 1%; animation-delay: 0s; animation-duration: 6s; }
+        .snowflake:nth-of-type(1) { left: 10%; animation-delay: 1s; animation-duration: 8s; }
+        .snowflake:nth-of-type(2) { left: 20%; animation-delay: 6s; animation-duration: 10s; }
+        .snowflake:nth-of-type(3) { left: 30%; animation-delay: 4s; animation-duration: 9s; }
+        .snowflake:nth-of-type(4) { left: 40%; animation-delay: 2s; animation-duration: 7s; }
+        .snowflake:nth-of-type(5) { left: 50%; animation-delay: 8s; animation-duration: 11s; }
+        .snowflake:nth-of-type(6) { left: 60%; animation-delay: 6s; animation-duration: 8s; }
+        .snowflake:nth-of-type(7) { left: 70%; animation-delay: 2.5s; animation-duration: 9s; }
+        .snowflake:nth-of-type(8) { left: 80%; animation-delay: 1s; animation-duration: 10s; }
+        .snowflake:nth-of-type(9) { left: 90%; animation-delay: 3s; animation-duration: 7s; }
+        .snowflake:nth-of-type(10) { left: 25%; animation-delay: 5s; animation-duration: 8.5s; }
+        .snowflake:nth-of-type(11) { left: 65%; animation-delay: 7s; animation-duration: 9.5s; }
+
+        /* Modal Overlay */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 10000;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 1;
+        }
+
+        .modal-content {
+            position: relative;
+            max-width: 95%;
+            max-height: 95vh;
+            margin: 20px auto;
+            background: var(--soft-black);
+            border-radius: 25px;
+            overflow: hidden;
+            border: 3px solid var(--primary-yellow);
+            box-shadow: 0 30px 90px rgba(255, 217, 61, 0.4);
+            transform: scale(0.8);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: modalBounce 0.6s ease-out forwards;
+        }
+
+        @keyframes modalBounce {
+            0% {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            60% {
+                transform: scale(1.05);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        .modal-image-container {
+            width: 100%;
+            max-height: 80vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .modal-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+            background: var(--deep-black);
+        }
+
+        .back-button {
+            position: absolute;
+            top: 25px;
+            left: 25px;
+            background: var(--gradient-1);
+            color: var(--deep-black);
+            border: none;
+            padding: 15px 35px;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(255, 217, 61, 0.4);
+            transition: all 0.3s ease;
+            z-index: 10001;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .back-button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(255, 217, 61, 0.6);
+        }
+
+        .back-button:active {
+            transform: translateY(-1px) scale(1.02);
+        }
+
+        .back-button::before {
+            content: '←';
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        /* Make menu items clickable */
+        .menu-item {
+            cursor: pointer;
+            user-select: none;
         }
 
         /* Language Switcher */
@@ -528,6 +693,23 @@
                 font-size: 1.6rem;
                 padding: 20px;
             }
+
+            .back-button {
+                top: 15px;
+                left: 15px;
+                padding: 12px 25px;
+                font-size: 1.1rem;
+            }
+
+            .modal-content {
+                max-width: 98%;
+                margin: 10px auto;
+                border-radius: 20px;
+            }
+
+            .modal-image-container {
+                max-height: 75vh;
+            }
         }
 
         @media (max-width: 480px) {
@@ -559,6 +741,17 @@
             .contact-value {
                 font-size: 1.1rem;
             }
+
+            .back-button {
+                top: 10px;
+                left: 10px;
+                padding: 10px 20px;
+                font-size: 1rem;
+            }
+
+            .back-button::before {
+                font-size: 1.2rem;
+            }
         }
     </style>
 </head>
@@ -585,61 +778,61 @@
     <section class="menu-section">
         <h2 class="section-title" data-translate="menuTitle">Menyumuzda</h2>
         <div class="menu-grid">
-            <div class="menu-item">
+            <div class="menu-item" data-menu="setler">
                 <div class="menu-item-image">
                     <img src="https://beertown-restaurant.my.canva.site/beer-town-resmi-menyu/_assets/media/2f6ec18aeda0c1d405a615bcd11b875a.jpg" alt="Setlər">
                 </div>
                 <h3 class="menu-item-name" data-translate="menu1">Setlər</h3>
             </div>
-            <div class="menu-item">
+            <div class="menu-item" data-menu="main">
                 <div class="menu-item-image">
                     <img src="https://beertown-restaurant.my.canva.site/beer-town-resmi-menyu/_assets/media/0aed78195b3ee34898c6eb6a5cbb6a00.jpg" alt="Əsas yeməklər">
                 </div>
                 <h3 class="menu-item-name" data-translate="menu2">Əsas yeməklər</h3>
             </div>
-            <div class="menu-item">
+            <div class="menu-item" data-menu="soups">
                 <div class="menu-item-image">
                     <img src="https://varnapizza.com/wp-content/uploads/2021/02/1-4.jpg" alt="Şorbalar">
                 </div>
                 <h3 class="menu-item-name" data-translate="menu3">Şorbalar</h3>
             </div>
-            <div class="menu-item">
+            <div class="menu-item" data-menu="cold">
                 <div class="menu-item-image">
                     <img src="https://beertown-restaurant.my.canva.site/beer-town-resmi-menyu/_assets/media/867c37816c0e4ccbc3199d35d5f3e29c.jpg" alt="Soyuq içkilər">
                 </div>
                 <h3 class="menu-item-name" data-translate="menu4">Soyuq içkilər</h3>
             </div>
-            <div class="menu-item">
+            <div class="menu-item" data-menu="beer">
                 <div class="menu-item-image">
                     <img src="https://beertown-restaurant.my.canva.site/beer-town-resmi-menyu/_assets/media/2c443b8e816839f2decb708864d02a22.jpg" alt="Pivələr">
                 </div>
                 <h3 class="menu-item-name" data-translate="menu5">Pivələr</h3>
             </div>
-            <div class="menu-item">
+            <div class="menu-item" data-menu="spirits">
                 <div class="menu-item-image">
                     <img src="https://beertown-restaurant.my.canva.site/beer-town-resmi-menyu/_assets/media/49cc71c0687eba1655a37a1e0c3d38fd.jpg" alt="Spirtli içkilər">
                 </div>
                 <h3 class="menu-item-name" data-translate="menu6">Spirtli içkilər</h3>
             </div>
-            <div class="menu-item">
+            <div class="menu-item" data-menu="salads">
                 <div class="menu-item-image">
                     <img src="https://beertown-restaurant.my.canva.site/beer-town-resmi-menyu/_assets/media/74e9c0b082f7052acf07b7996c028512.jpg" alt="Salatlar">
                 </div>
                 <h3 class="menu-item-name" data-translate="menu7">Salatlar</h3>
             </div>
-            <div class="menu-item">
+            <div class="menu-item" data-menu="snacks">
                 <div class="menu-item-image">
                     <img src="https://beertown-restaurant.my.canva.site/beer-town-resmi-menyu/_assets/media/baa1a70dd582c611007ef333c1634ac3.jpg" alt="Qəlyanaltılar">
                 </div>
                 <h3 class="menu-item-name" data-translate="menu8">Qəlyanaltılar</h3>
             </div>
-            <div class="menu-item">
+            <div class="menu-item" data-menu="beersnacks">
                 <div class="menu-item-image">
                     <img src="https://beertown-restaurant.my.canva.site/beer-town-resmi-menyu/_assets/media/a0175058eb7e28e8c6e69fbda6c03d88.jpg" alt="Pivə yanı Qəlyanaltılar">
                 </div>
                 <h3 class="menu-item-name" data-translate="menu9">Pivə yanı Qəlyanaltılar</h3>
             </div>
-            <div class="menu-item">
+            <div class="menu-item" data-menu="tea">
                 <div class="menu-item-image">
                     <img src="https://beertown-restaurant.my.canva.site/beer-town-resmi-menyu/_assets/media/bd35f90f3eaa62ad29fcb02104ac8600.jpg" alt="Çay və şirniyyatlar">
                 </div>
@@ -672,6 +865,30 @@
         </div>
     </footer>
 
+    <!-- Snow Animation -->
+    <div class="snowflake">❄</div>
+    <div class="snowflake">❄</div>
+    <div class="snowflake">❄</div>
+    <div class="snowflake">❄</div>
+    <div class="snowflake">❄</div>
+    <div class="snowflake">❄</div>
+    <div class="snowflake">❄</div>
+    <div class="snowflake">❄</div>
+    <div class="snowflake">❄</div>
+    <div class="snowflake">❄</div>
+    <div class="snowflake">❄</div>
+    <div class="snowflake">❄</div>
+
+    <!-- Modal for Menu Details -->
+    <div class="modal-overlay" id="menuModal">
+        <button class="back-button" id="closeModal" data-translate="backButton">Geri</button>
+        <div class="modal-content">
+            <div class="modal-image-container">
+                <img class="modal-image" id="modalImage" src="" alt="Menu">
+            </div>
+        </div>
+    </div>
+
     <script>
         // Translations
         const translations = {
@@ -690,7 +907,8 @@
                 menu10: 'Çay və şirniyyatlar',
                 footerTitle: 'Dəstək',
                 emailLabel: 'E-poçt Ünvanı',
-                phoneLabel: 'Telefon Nömrəsi'
+                phoneLabel: 'Telefon Nömrəsi',
+                backButton: 'Geri'
             },
             ru: {
                 tagline: 'Лучшее пиво и вкусная еда',
@@ -707,7 +925,8 @@
                 menu10: 'Чай и сладости',
                 footerTitle: 'Поддержка',
                 emailLabel: 'Адрес электронной почты',
-                phoneLabel: 'Номер телефона'
+                phoneLabel: 'Номер телефона',
+                backButton: 'Назад'
             },
             en: {
                 tagline: 'The best beer and delicious food',
@@ -724,8 +943,23 @@
                 menu10: 'Tea & Sweets',
                 footerTitle: 'Support',
                 emailLabel: 'Email Address',
-                phoneLabel: 'Phone Number'
+                phoneLabel: 'Phone Number',
+                backButton: 'Back'
             }
+        };
+
+        // Menu detail images mapping
+        const menuImages = {
+            'setler': 'https://beertown-restaurant.my.canva.site/beer-town-resmi-menyu/_assets/media/23fece1b59332bcc97b1c03914147414.jpg',
+            'main': 'https://beertown-restaurant.my.canva.site/beer-town-resmi-menyu/_assets/media/068b7b554f1fa06ebd3850e71e0f80ba.jpg',
+            'soups': 'https://beertown-restaurant.my.canva.site/beer-town-resmi-menyu/_assets/media/b6e097605b844737711d80a254d826fe.jpg',
+            'cold': 'https://beertown-restaurant.my.canva.site/beer-town-resmi-menyu/_assets/media/365622c6ff26d06dd2de770c5aa35a03.jpg',
+            'beer': 'https://beertown-restaurant.my.canva.site/beer-town-resmi-menyu/_assets/media/f85c658ca7779fc017b323c301de0175.jpg',
+            'spirits': 'https://beertown-restaurant.my.canva.site/beer-town-resmi-menyu/_assets/media/f55ab129dc9cb4a0df78c309c309ddbd.jpg',
+            'salads': 'https://beertown-restaurant.my.canva.site/beer-town-resmi-menyu/_assets/media/56692ab375af8d9c7192fcceb32edb8c.jpg',
+            'snacks': 'https://beertown-restaurant.my.canva.site/beer-town-resmi-menyu/_assets/media/839d8d68fa1ae20cbbb75520f2e97463.jpg',
+            'beersnacks': 'https://beertown-restaurant.my.canva.site/beer-town-resmi-menyu/_assets/media/29fa9c9af8204de13373af21f521b2f6.jpg',
+            'tea': 'https://beertown-restaurant.my.canva.site/beer-town-resmi-menyu/_assets/media/287dc2254b077738ced96dcc0c301785.jpg'
         };
 
         // Language switcher functionality
@@ -759,6 +993,48 @@
             btn.addEventListener('click', () => {
                 changeLanguage(btn.dataset.lang);
             });
+        });
+
+        // Modal functionality
+        const modal = document.getElementById('menuModal');
+        const modalImage = document.getElementById('modalImage');
+        const closeModalBtn = document.getElementById('closeModal');
+        const menuItems = document.querySelectorAll('.menu-item');
+
+        // Open modal when menu item is clicked
+        menuItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const menuType = item.dataset.menu;
+                const imageUrl = menuImages[menuType];
+                
+                if (imageUrl) {
+                    modalImage.src = imageUrl;
+                    modal.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                }
+            });
+        });
+
+        // Close modal
+        function closeModal() {
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        closeModalBtn.addEventListener('click', closeModal);
+
+        // Close modal when clicking outside the image
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        // Close modal with ESC key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.classList.contains('active')) {
+                closeModal();
+            }
         });
 
         // Smooth scroll animations on load
